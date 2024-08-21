@@ -1,33 +1,27 @@
-export default (sequelize, DataTypes) => {
-  const groups = sequelize.define('groups', {
-    groupName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: { args: true, msg: 'Group name cannot be empty' },
-        len: {
-          args: [1, 255],
-          msg: 'Group name cannot be more than 255 characters' }
-      },
+const { Model } = require('sequelize');
+
+module.exports = (sequelize, DataTypes) => {
+  class groups extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  groups.init(
+    {
+      groupName: DataTypes.STRING,
+      groupDescription: DataTypes.STRING,
+      createdBy: DataTypes.INTEGER,
     },
-    groupDescription: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: { args: true, msg: 'Group description cannot be empty' },
-        len: {
-          args: [1, 255],
-          msg: 'Group description cannot be more than 255 characters' }
-      },
-    },
-    createdBy: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: { args: true, msg: 'User Id can only be an integer' },
-      },
-    },
-  });
+    {
+      sequelize,
+      modelName: 'groups',
+    }
+  );
 
   groups.associate = (models) => {
     groups.belongsToMany(models.users, {
@@ -35,10 +29,8 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'groupId',
       onDelete: 'cascade',
     });
-    groups.hasMany(models.messages, {
-      foreignKey: 'groupId',
-    });
+    groups.hasMany(models.messages, { foreignKey: 'groupId' });
   };
+
   return groups;
 };
-

@@ -17,10 +17,10 @@ Once you have all of these installed, run this command
 `  git clone https://github.com/gbengaPS/postit.git  ` in your terminal<br /><br />
 This will create a postit folder on your local machine<br /><br />
 Change directory to postit `  cd postit  `<br /><br />
-And then run  `  npm install  ` <br /><br />
+And then run  `yarn install` <br /><br />
 This will install all dependencies.<br /><br />
 You'll need to create a .env file, follow the pattern in the .env.example file. <br /><br />
-Install sequelize cli globally `  npm install -g sequlize  ` and then run migrations `  sequelize db:migrate   `<br /><br />
+Install sequelize cli globally `  npm install -g sequlize  `  Run migrations `sequelize db:migrate   `<br /><br />
 To start the project, run `  npm start  `<br /><br />
 This will start the server on port: 3000 <br /><br />
 
