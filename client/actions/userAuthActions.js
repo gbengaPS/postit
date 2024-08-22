@@ -23,12 +23,10 @@ export const tokenRedirect = (error) => {
  *
  * @returns {object} -returns object
  */
-export const loginLoading = isLoading => (
-  {
-    type: 'LOGIN_LOADING',
-    isLoading,
-  }
-);
+export const loginLoading = (isLoading) => ({
+  type: 'LOGIN_LOADING',
+  isLoading,
+});
 
 /**
  *
@@ -36,12 +34,10 @@ export const loginLoading = isLoading => (
  *
  * @returns {object} -returns object
  */
-export const userAuthSuccess = user => (
-  {
-    type: 'AUTHENTICATE_USER',
-    user,
-  }
-);
+export const userAuthSuccess = (user) => ({
+  type: 'AUTHENTICATE_USER',
+  user,
+});
 
 /**
  *
@@ -49,12 +45,10 @@ export const userAuthSuccess = user => (
  *
  * @returns {object} -returns object
  */
-export const signupLoading = isLoading => (
-  {
-    type: 'SIGNUP_LOADING',
-    isLoading,
-  }
-);
+export const signupLoading = (isLoading) => ({
+  type: 'SIGNUP_LOADING',
+  isLoading,
+});
 
 /**
  *
@@ -62,12 +56,10 @@ export const signupLoading = isLoading => (
  *
  * @returns {object} -returns object
  */
-export const loginError = error => (
-  {
-    type: 'LOGIN_ERROR',
-    error,
-  }
-);
+export const loginError = (error) => ({
+  type: 'LOGIN_ERROR',
+  error,
+});
 
 /**
  *
@@ -75,12 +67,10 @@ export const loginError = error => (
  *
  * @returns {object} -returns object
  */
-export const signupError = error => (
-  {
-    type: 'SIGNUP_ERROR',
-    error,
-  }
-);
+export const signupError = (error) => ({
+  type: 'SIGNUP_ERROR',
+  error,
+});
 
 /**
  * @description stores user details
@@ -93,7 +83,7 @@ const storeUserDetails = (response) => {
   localStorage.setItem('postitToken', response.data.user.token);
   localStorage.setItem('postitUser', JSON.stringify(response.data.user));
   axios.defaults.headers.common['x-access-token'] =
-  localStorage.getItem('postitToken');
+    localStorage.getItem('postitToken');
 };
 
 /**
@@ -104,9 +94,9 @@ const storeUserDetails = (response) => {
  *
  * @returns {promise} -returns a promise
  */
-export const loginUser = (user, history) => (
-  dispatch => axios.post('/api/user/signin',
-     user)
+export const loginUser = (user, history) => (dispatch) =>
+  axios
+    .post('/api/user/signin', user)
     .then((response) => {
       dispatch(userAuthSuccess(response.data));
       dispatch(loginLoading(false));
@@ -116,8 +106,7 @@ export const loginUser = (user, history) => (
     .catch(({ response }) => {
       dispatch(loginLoading(false));
       dispatch(loginError(response.data.error));
-    })
-);
+    });
 
 /**
  * @description signs up user
@@ -127,9 +116,9 @@ export const loginUser = (user, history) => (
  *
  * @returns {promise} -returns a promise
  */
-export const signupUser = (user, history) => (
-  dispatch => axios.post(
-    '/api/user/signup', user)
+export const signupUser = (user, history) => (dispatch) =>
+  axios
+    .post('/api/user/signup', user)
     .then((response) => {
       if (response.status === 201) {
         dispatch(userAuthSuccess(user));
@@ -140,5 +129,4 @@ export const signupUser = (user, history) => (
     .catch(({ response }) => {
       dispatch(signupLoading(false));
       dispatch(signupError(response.data.error));
-    })
-);
+    });

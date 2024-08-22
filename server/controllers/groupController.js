@@ -13,7 +13,7 @@ const { groupMembers, groups, messages, users } = models;
 export const createGroup = (req, res) => {
   const { groupName, groupDescription } = req.body;
   groups
-    .find({
+    .findOne({
       where: {
         groupName: groupName.toLowerCase().trim(),
       },
