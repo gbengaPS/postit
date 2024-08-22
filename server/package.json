@@ -9,15 +9,6 @@
       "!client/index.js",
       "!client/bundled/*.js",
       "client/**/*.(js|jsx)"
-    ],
-    "testPathIgnorePatterns": [
-      "client/e2e/*.(js|jsx)"
-    ],
-    "setupFiles": [
-      "./client/tests/jestSetup.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
     ]
   },
   "scripts": {
@@ -25,9 +16,7 @@
     "cover": "nyc npm run test",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "client:test": "jest --coverage client",
-    "start:server": "./node_modules/.bin/nodemon -L --watch server --exec ./node_modules/.bin/babel-node server/bin/www",
-    "start:client": "webpack-dev-server --config ./webpack.dev.config.js",
-    "start:dev": "./node_modules/.bin/concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "./node_modules/.bin/nodemon -L --watch server --exec ./node_modules/.bin/babel-node ./bin/www",
     "start:selenium": "./node_modules/.bin/selenium-standalone start",
     "e2e:setup": "selenium-standalone install",
     "e2e:test": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nightwatch",
@@ -55,7 +44,6 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
@@ -67,8 +55,6 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-plugin-import": "^2.6.1",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0",
     "express": "^4.15.3",
     "express-jwt": "^5.3.0",
     "express-mailer": "^0.3.1",
@@ -76,16 +62,12 @@
     "express-validator": "^4.3.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "faker": "^4.1.0",
-    "file-loader": "^1.1.11",
-    "history": "^4.7.2",
-    "html-webpack-plugin": "^3.2.0",
     "istanbul": "^0.4.5",
     "jest": "^23.6.0",
     "jsonwebtoken": "^7.4.1",
     "mocha": "^3.4.2",
     "mocha-lcov-reporter": "^1.3.0",
     "mockery": "^2.1.0",
-    "moment": "^2.19.2",
     "nodemailer": "^4.1.0",
     "nodemailer-mock": "^1.3.8",
     "nodemon": "^1.12.0",
