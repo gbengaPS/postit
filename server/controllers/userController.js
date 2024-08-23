@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 const { Op } = require('sequelize');
 import models from '../models';
 import transporter from '../config/transporter';
-import validateSignUpInput from '../shared/validateSignUpInput';
+import { validateSignUpInput } from '../includes/helperFunctions';
 import {
   getId,
   generateToken,
