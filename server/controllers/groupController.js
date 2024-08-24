@@ -145,7 +145,7 @@ export const getGroups = (req, res) => {
       order: [[groups, 'id', 'DESC']],
     })
     .then((userGroups) => {
-      res.send({ groups: userGroups.groups });
+      res.send({ groups: userGroups[0].groups });
     })
     .catch(() => {
       res.status(500).send({ error: 'Internal server error' });

@@ -16,7 +16,7 @@
     "cover": "nyc npm run test",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "client:test": "jest --coverage client",
-    "start:server": "./node_modules/.bin/nodemon -L --watch server --exec ./node_modules/.bin/babel-node ./bin/www",
+    "start:server": "./node_modules/.bin/nodemon  --exec ./node_modules/.bin/babel-node ./bin/www",
     "start:selenium": "./node_modules/.bin/selenium-standalone start",
     "e2e:setup": "selenium-standalone install",
     "e2e:test": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nightwatch",
