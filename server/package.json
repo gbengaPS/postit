@@ -1,0 +1,84 @@
+{
+  "name": "postit-gbenga",
+  "version": "1.0.0",
+  "description": "group messaging application",
+  "main": "index.js",
+  "jest": {
+    "verbose": true,
+    "collectCoverageFrom": [
+      "!client/index.js",
+      "!client/bundled/*.js",
+      "client/**/*.(js|jsx)"
+    ]
+  },
+  "scripts": {
+    "test": "NODE_ENV=test mocha --timeout 25000 --require babel-polyfill --compilers js:babel-register",
+    "cover": "nyc npm run test",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "client:test": "jest --coverage client",
+    "start:server": "./node_modules/.bin/nodemon  --exec ./node_modules/.bin/babel-node ./bin/www",
+    "start:selenium": "./node_modules/.bin/selenium-standalone start",
+    "e2e:setup": "selenium-standalone install",
+    "e2e:test": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all && nightwatch",
+    "db:migrate": "sequelize-cli db:migrate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbengaPS/PostIT-Gbenga.git"
+  },
+  "keywords": [
+    "messaging"
+  ],
+  "author": "Gbenga Oyetade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbengaPS/PostIT-Gbenga/issues"
+  },
+  "homepage": "https://github.com/gbengaPS/PostIT-Gbenga#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.24.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "chai": "^4.0.2",
+    "compression": "^1.7.3",
+    "cors": "^2.8.5",
+    "coveralls": "^2.13.1",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.2",
+    "eslint-plugin-import": "^2.6.1",
+    "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "express-mailer": "^0.3.1",
+    "express-static-gzip": "^1.1.3",
+    "express-validator": "^4.3.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "faker": "^4.1.0",
+    "istanbul": "^0.4.5",
+    "jest": "^23.6.0",
+    "jsonwebtoken": "^7.4.1",
+    "mocha": "^3.4.2",
+    "mocha-lcov-reporter": "^1.3.0",
+    "mockery": "^2.1.0",
+    "nodemailer": "^4.1.0",
+    "nodemailer-mock": "^1.3.8",
+    "nodemon": "^1.12.0",
+    "nyc": "^11.0.3",
+    "pg": "^8.12.0",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
+  }
+}

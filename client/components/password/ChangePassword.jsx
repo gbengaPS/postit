@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
-import 'url-search-params-polyfill';
 import InputField from '../common/InputField';
 import SubmitButton from '../common/SubmitButton';
 import Nav from '../common/Nav';
@@ -15,7 +14,6 @@ import { updatePassword } from '../../actions/passwordActions';
  * @extends { React.Component }
  */
 export class ChangePassword extends React.Component {
-
   /**
    * @description Creates an instance of ChangePassword.
    *
@@ -87,8 +85,7 @@ export class ChangePassword extends React.Component {
         title: 'Password',
         text: 'Password updated successfully',
         icon: 'success',
-      })
-      .then((result) => {
+      }).then((result) => {
         if (result) {
           this.props.history.push('/login');
         }
@@ -97,29 +94,31 @@ export class ChangePassword extends React.Component {
     return (
       <div className="row">
         <Nav middleLink="Password Reset" />
-          <div className="form-container col s10 offset-s1 m4 offset-m4">
-            <p className="big center"> Password Reset</p>
-            <span className="red-text center">
-            &nbsp;{ this.state.error || this.props.error.passwordUpdateError }
-            </span>
-            <form onSubmit={this.handleSubmit} >
-              <InputField
+        <div className="form-container col s10 offset-s1 m4 offset-m4">
+          <p className="big center"> Password Reset</p>
+          <span className="red-text center">
+            &nbsp;{this.state.error || this.props.error.passwordUpdateError}
+          </span>
+          <form onSubmit={this.handleSubmit}>
+            <InputField
               type="password"
               required="required"
               labelValue="Password"
               name="password"
-              handleChange={this.handleChange} />
-              <InputField
+              handleChange={this.handleChange}
+            />
+            <InputField
               type="password"
               required="required"
               labelValue="Confirm Password"
               name="confirmPassword"
-              handleChange={this.handleChange} />
-              <SubmitButton submitValue="Reset Password" />
-              <p> &nbsp; </p>
-            </form>
-          </div>
+              handleChange={this.handleChange}
+            />
+            <SubmitButton submitValue="Reset Password" />
+            <p> &nbsp; </p>
+          </form>
         </div>
+      </div>
     );
   }
 }
@@ -128,21 +127,19 @@ ChangePassword.propTypes = {
   updatePassword: PropTypes.func.isRequired,
   error: PropTypes.object,
   updatePasswordSuccess: PropTypes.bool.isRequired,
-  history: PropTypes.object
+  history: PropTypes.object,
 };
-  /**
-   * @description Maps state to props
-   *
-   * @param {object} state -application state
-   *
-   * @returns {object} -returns part of the state
-  */
-const mapStateToProps = state => (
-  {
-    updatePasswordSuccess: state.passwordReducer.passwordUpdated,
-    error: state.passwordReducer,
-  }
-);
+/**
+ * @description Maps state to props
+ *
+ * @param {object} state -application state
+ *
+ * @returns {object} -returns part of the state
+ */
+const mapStateToProps = (state) => ({
+  updatePasswordSuccess: state.passwordReducer.passwordUpdated,
+  error: state.passwordReducer,
+});
 /**
  * @description Maps dispatch to props
  *
@@ -150,12 +147,10 @@ const mapStateToProps = state => (
  *
  * @returns {object} -actions to be dispatched
  */
-const mapDispatchToProps = dispatch => (
-  {
-    updatePassword: (password, token) => {
-      dispatch(updatePassword(password, token));
-    },
-  }
-);
+const mapDispatchToProps = (dispatch) => ({
+  updatePassword: (password, token) => {
+    dispatch(updatePassword(password, token));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

@@ -1,64 +1,38 @@
-import bcrypt from 'bcryptjs';
+const { Model } = require('sequelize');
+const bcrypt = require('bcryptjs');
 
-export default (sequelize, DataTypes) => {
-  const users = sequelize.define('users', {
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        is: {
-          args: /^[a-zA-Z0-9_]*$/,
-          msg: 'Username cannot contain special characters aside from _'
-        }
-      }
-    },
-    fullName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: {
-          args: /^[a-zA-Z ]*$/,
-          msg: 'Name can only contain alphabets'
-        }
-      }
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isEmail: { value: true, msg: 'Invalid email address supplied' }
-      }
-    },
-    phoneNumber: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: { value: true, msg: 'Phonenumber is required' }
-      }
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: { args: [6, 100], msg: 'Password must be at least 6 characters' },
-        notEmpty: { value: true, msg: 'Password cannot be empty' }
-      }
+module.exports = (sequelize, DataTypes) => {
+  class users extends Model {
+    static associate(models) {
+      users.belongsToMany(models.groups, {
+        through: models.groupMembers,
+        foreignKey: 'userId',
+        onDelete: 'cascade',
+      });
+      users.hasMany(models.messages);
     }
-  });
+  }
+
+  users.init(
+    {
+      fullName: DataTypes.STRING,
+      email: DataTypes.STRING,
+      profilePicUrl: DataTypes.STRING,
+      username: DataTypes.STRING,
+      phoneNumber: DataTypes.STRING,
+      password: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'users',
+    }
+  );
 
   users.beforeCreate((user) => {
     const salt = bcrypt.genSaltSync(5);
     const hash = bcrypt.hashSync(user.password, salt);
     user.password = hash;
   });
-  users.associate = (models) => {
-    users.belongsToMany(models.groups, {
-      through: models.groupMembers,
-      foreingKey: 'userId',
-      onDelete: 'cascade'
-    });
-    users.hasMany(models.messages);
-  };
+
   return users;
 };

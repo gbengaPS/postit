@@ -1,32 +1,20 @@
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-  const groupMembers = sequelize.define('groupMembers', {
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: { args: true, msg: 'User Id can only be an integer' },
-      },
+module.exports = (sequelize, DataTypes) => {
+  class groupMembers extends Model {
+    static associate(models) {}
+  }
+  groupMembers.init(
+    {
+      addedBy: DataTypes.INTEGER,
+      groupId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
     },
-    addedBy: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: { args: true, msg: 'User Id can only be an integer' },
-      },
-    },
-    groupId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: { args: true, msg: 'User Id can only be an integer' },
-      },
-    },
-  }, {
-    classMethods: {
-      associate: () => {
-      },
-    },
-  });
+    {
+      sequelize,
+      modelName: 'groupMembers',
+    }
+  );
+
   return groupMembers;
 };
